@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{plantillas/base :: head}">
+</head>
+<body>
+    <nav th:replace="~{plantillas/base:: menu}"></nav>
+    <div class="row row-cols-1 row-cols-md-4 g-4 m-3" href="categories.html">
+        <div th:each="categorie : ${categories}" class="col">
+            <div  class="card">
+                <img class="card-img-top p-5" th:src="@{${'/images/' + categorie.image}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${categorie.name}">Card title that wraps to a new line</h5>
+                    <a th:href="@{${'/categorias/' + categorie.id}}" class="btn btn-primary stretched-link">Mostrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        <!--<td th:text="${prod.price}">2.41</td>
+        <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>-->
+    <footer th:replace="~{plantillas/base :: footer}"></footer>
+    <script th:replace="~{plantillas/base :: jquery}"></script>
+    <script th:replace="~{plantillas/base :: popper}"></script>
+    <script th:replace="~{plantillas/base :: bootstrap}"></script>
+</body>
+</html>
