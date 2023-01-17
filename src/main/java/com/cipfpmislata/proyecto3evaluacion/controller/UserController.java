@@ -20,12 +20,12 @@ public class UserController {
     }
 
     @PostMapping("/registro")
-    public String signup(HttpServletRequest request) {
+    public String signup(HttpServletRequest httpServletRequest) {
         System.out.println("Se inicia el proceso de registro");
-        String name = request.getParameter("name");
-        String mail = request.getParameter("mail");
-        String password = request.getParameter("password");
-        String repeat_password = request.getParameter("repeat_password");
+        String name = httpServletRequest.getParameter("name");
+        String mail = httpServletRequest.getParameter("mail");
+        String password = httpServletRequest.getParameter("password");
+        String repeat_password = httpServletRequest.getParameter("repeat_password");
         System.out.println("Nombre: " + name + ", mail: " + mail + ", password: " + password + ", repeat_password: " + repeat_password);
         try {
             userService.create(name, mail, password, repeat_password);
@@ -37,7 +37,16 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm(){
-        return null;
+    public String showSigninForm(){
+        return "signin";
+    }
+
+    @PostMapping("/login")
+    public String signin(HttpServletRequest httpServletRequest){
+        System.out.println("Se inicia el proceso de login");
+        String mail = httpServletRequest.getParameter("mail");
+        String password = httpServletRequest.getParameter("password");
+        System.out.println("Mail: " + mail + ", password: " + password);
+        return "index";
     }
 }
