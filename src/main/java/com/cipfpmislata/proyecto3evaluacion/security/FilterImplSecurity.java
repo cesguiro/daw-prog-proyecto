@@ -1,4 +1,4 @@
-package com.cipfpmislata.proyecto3evaluacion.security;
+/*package com.cipfpmislata.proyecto3evaluacion.security;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-/*@Component
-@Order(1)*/
+@Component
+@Order(1)
 public class FilterImplSecurity implements Filter{
 
     public DataSession dataSession;
@@ -35,9 +35,9 @@ public class FilterImplSecurity implements Filter{
             System.out.println("usuario no logueado");
         } else {
             System.out.println("usuario logueado");
-        }*/
+        }
         //chain.doFilter(request, response);
         
     }
     
-}
+}*/

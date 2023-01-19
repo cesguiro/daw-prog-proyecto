@@ -1,4 +1,4 @@
-package com.cipfpmislata.proyecto3evaluacion.security;
+/*package com.cipfpmislata.proyecto3evaluacion.security;
 
 import java.io.IOException;
 
@@ -30,4 +30,4 @@ public class AuthenticationFilter extends OncePerRequestFilter{
             filterChain.doFilter(request, response);           
     }
     
-}
+}*/
