@@ -11,8 +11,6 @@ import com.cipfpmislata.proyecto3evaluacion.persistence.UserRepository;
 import com.cipfpmislata.proyecto3evaluacion.persistence.impl.UserRepositoryImplJDBC;
 import com.cipfpmislata.proyecto3evaluacion.security.UserSession;
 
-import jakarta.servlet.http.HttpSession;
-
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository = new UserRepositoryImplJDBC();

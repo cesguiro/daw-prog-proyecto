@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout(){
+    public String signout(){
         UserSession.clear();
         return "index";
     }

@@ -21,7 +21,6 @@ public class ProductController {
     public String getByCategoryId(@PathVariable int id, Model model) {
         
         List<Product> products = productService.getByCategoryId(id);
-        System.out.println(products);
         model.addAttribute("products", products);
 
         return "products";

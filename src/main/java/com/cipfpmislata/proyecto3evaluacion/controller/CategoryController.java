@@ -20,7 +20,6 @@ public class CategoryController {
         try {
             List<Category> categories = categoryService.getAll();            
             model.addAttribute("categories", categories);
-            System.out.println("Todo correcto");
         } catch (Exception e) {
             e.printStackTrace();
         }
