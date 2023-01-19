@@ -1,4 +1,4 @@
-/*package com.cipfpmislata.proyecto3evaluacion.security;
+package com.cipfpmislata.proyecto3evaluacion.security;
 
 import java.io.IOException;
 
@@ -16,28 +16,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Component
-@Order(1)
 public class FilterImplSecurity implements Filter{
 
     public DataSession dataSession;
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         
-        /*HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        //System.out.println("Se activa el filtro");
 
-        HttpSession httpSession = httpServletRequest.getSession(false);
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpSession session = httpServletRequest.getSession();
+        UserSession.setSession(session);
 
-        System.out.println("Filtro activo");
-
-        if(httpSession == null) {
-            System.out.println("usuario no logueado");
-        } else {
-            System.out.println("usuario logueado");
-        }
-        //chain.doFilter(request, response);
-        
+        chain.doFilter(request, response);
     }
     
-}*/
+}

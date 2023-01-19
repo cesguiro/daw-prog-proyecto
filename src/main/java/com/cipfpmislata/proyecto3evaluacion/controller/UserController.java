@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cipfpmislata.proyecto3evaluacion.domain.service.UserService;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.impl.UserServiceImpl;
+import com.cipfpmislata.proyecto3evaluacion.security.UserSession;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -47,6 +48,23 @@ public class UserController {
         String mail = httpServletRequest.getParameter("mail");
         String password = httpServletRequest.getParameter("password");
         System.out.println("Mail: " + mail + ", password: " + password);
+        try {
+            if(userService.login(mail, password)) {
+                System.out.println("Todo correcto");
+            } else {
+                System.out.println("Usuario o contraseña incorrecta");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Fallo en el sistema de login");
+        }
+        System.out.println("Terminado el proceso de login");
+        return "index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        UserSession.clear();
         return "index";
     }
 }

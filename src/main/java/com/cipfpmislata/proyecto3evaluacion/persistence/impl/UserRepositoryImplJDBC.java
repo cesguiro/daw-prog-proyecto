@@ -1,6 +1,7 @@
 package com.cipfpmislata.proyecto3evaluacion.persistence.impl;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -20,6 +21,35 @@ public class UserRepositoryImplJDBC implements UserRepository{
             boolean result = DBUtil.insert(connection, sql, params);
             DBUtil.close(connection);
             return result;
+        } catch (SQLIntegrityConstraintViolationException e){
+            throw new RuntimeException("Usuario ya registrado");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public User findByMail(String mail) {
+        try {
+            Connection connection = DBUtil.open();
+            String sql = "SELECT * FROM users WHERE mail = ?";
+            List<Object> params = List.of(mail);
+            ResultSet resultSet = DBUtil.select(connection, sql, params);
+            if (resultSet.next()) {
+                System.out.println("Usuario encontrado");
+                User user = new User(
+                    resultSet.getInt("id"), 
+                    resultSet.getString("name"),
+                    resultSet.getString("mail"),
+                    resultSet.getString("password")                    
+                );
+                return  user;                    
+            } else {
+                System.out.println("Usuario no encontrado");
+                return null;
+            }
         } catch (SQLIntegrityConstraintViolationException e){
             throw new RuntimeException("Usuario ya registrado");
         } catch (SQLException e) {

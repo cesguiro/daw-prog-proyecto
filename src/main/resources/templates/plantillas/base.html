@@ -21,9 +21,14 @@
           <a class="nav-link" href="/categorias">Categorías</a>
           <a class="nav-link" href="#">Ofertas</a>
         </div>
-        <div class="navbar-nav">
+        <div class="navbar-nav" th:if="${session.isEmpty()}" >
           <a class="nav-link" href="/registro">Registro</a>
           <a class="nav-link" href="/login">Login</a>
+        </div>
+        <div class="navbar-nav" th:unless="${session.isEmpty()}">
+          <a class="nav-link" href="/carrito">Carrito</a>
+          <a class="nav-link" th:href="@{${'/users/' + session.user_id + '/carritos'}} ">Listado Carritos</a>
+          <a class="nav-link" href="/logout">logout</a>
         </div>
       </div>
     </div>

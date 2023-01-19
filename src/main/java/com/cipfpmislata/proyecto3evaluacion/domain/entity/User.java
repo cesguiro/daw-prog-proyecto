@@ -14,6 +14,7 @@ public class User {
 
     //Constructor por defecto con los campos obligatorios
     public User(int id, String name, String mail, String password) {
+        this.id = id;
         this.name = name;
         this.mail = mail;
         this.password = password;
