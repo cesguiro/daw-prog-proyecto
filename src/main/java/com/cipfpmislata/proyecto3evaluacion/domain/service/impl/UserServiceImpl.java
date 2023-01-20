@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.cipfpmislata.proyecto3evaluacion.domain.entity.User;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.UserService;
+import com.cipfpmislata.proyecto3evaluacion.exception.SigninException;
+import com.cipfpmislata.proyecto3evaluacion.exception.SignupException;
 import com.cipfpmislata.proyecto3evaluacion.persistence.UserRepository;
 import com.cipfpmislata.proyecto3evaluacion.persistence.impl.UserRepositoryImplJDBC;
 import com.cipfpmislata.proyecto3evaluacion.security.UserSession;
@@ -19,22 +21,29 @@ public class UserServiceImpl implements UserService{
     //Pattern pattern = Pattern.compile(mailRegex);
 
     @Override
-    public boolean create(String name, String mail, String password, String repeat_password) {
+    public boolean create(String name, String mail, String password, String repeat_password) throws SignupException {
+        //Passwords no coinciden
         if(!password.equals(repeat_password)) {
-            throw new RuntimeException("Los passwords no coinciden");
+            throw new SignupException("Las contraseñas no coinciden");
         }
 
+        //Mail con formato incorrecto
         if(!Pattern.matches(mailRegex, mail)){
-            throw new RuntimeException("Formato de mail incorrecto");
+            throw new SignupException("Formato de email inválido");
         }
 
-        try {
-            User user = new User(name, mail, encryptPassword(password));
-            return userRepository.create(user);                
-        } catch(Exception e) {
-            throw e;
+        //Mail repetido
+        if (userRepeated(mail)) {
+            throw new SignupException("El email ya está registrado");
         }
 
+        User user = new User(name, mail, encryptPassword(password));
+        return userRepository.create(user);                
+    }
+
+    private boolean userRepeated(String mail) {
+        User user = userRepository.findByMail(mail);
+        return user != null? true: false;                
     }
 
     private String encryptPassword(String password){
@@ -43,20 +52,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean login(String mail, String password) {
-        try {
-            User user =  userRepository.findByMail(mail);
-            if(user != null && BCrypt.checkpw(password, encryptPassword(password))){
-                System.out.println("Credenciales correctas");
-                UserSession.setAttribute("user_id", user.getId());
-                return true;
-            } else {
-                System.out.println("Fallo en las credenciales");
-                return false;
-            }
-        } catch(Exception e) {
-            throw e;
-        }        
+    public void login(String mail, String password) throws SigninException {
+        User user =  userRepository.findByMail(mail);
+        if(user != null && BCrypt.checkpw(password, encryptPassword(password))){
+            System.out.println("Credenciales correctas");
+            UserSession.setUserId(user.getId());
+        } else {
+            throw new SigninException("Nombre de usuario o contraseña incorrectos");
+        }
     }
 
     

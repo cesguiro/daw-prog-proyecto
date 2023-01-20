@@ -43,9 +43,7 @@ public class CategoryRepositoryImplJDBC implements CategoryRepository{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw e;
-        }
+        } 
     }
 
     @Override
@@ -79,8 +77,6 @@ public class CategoryRepositoryImplJDBC implements CategoryRepository{
             return  categories;                    
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw e;
         }
     }
 

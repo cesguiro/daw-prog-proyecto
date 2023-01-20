@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 public class UserSession {
     
     private static HttpSession session;
+    private final static String USER_ID = "user_id";
 
     public static void setSession(HttpSession session){
         UserSession.session = session;
@@ -22,8 +23,25 @@ public class UserSession {
         return session.getAttribute(name);
     }
         
-    public static void clear(){
-        //session.invalidate();
-        session.removeAttribute("user_id");
+    public static void removeAttribute(String name){
+        session.removeAttribute(name);
     }
+
+
+    public static void setUserId(int id){
+        setAttribute(USER_ID, id);
+    }
+
+    public static Integer getUserId(){
+        return (Integer) getAttribute(USER_ID);
+    }
+
+    public static boolean isLogged(){
+        return (getUserId() != null)? true: false;
+    }
+
+    public static void clear(){
+        session.invalidate();
+    }
+
 }

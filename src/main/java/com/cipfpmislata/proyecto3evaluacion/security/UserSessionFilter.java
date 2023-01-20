@@ -12,10 +12,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Component
-public class FilterImplSecurity implements Filter{
+public class UserSessionFilter implements Filter{
 
     public DataSession dataSession;
 
@@ -25,8 +24,7 @@ public class FilterImplSecurity implements Filter{
         //System.out.println("Se activa el filtro");
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpSession session = httpServletRequest.getSession();
-        UserSession.setSession(session);
+        UserSession.setSession(httpServletRequest.getSession());
 
         chain.doFilter(request, response);
     }

@@ -69,9 +69,7 @@ public class ProductRepositoryImplJDBC implements ProductRepository{
             return products;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw e;
-        }
+        } 
     }
     
 }

@@ -9,16 +9,20 @@ import java.util.List;
 
 public class DBUtil {
     
-    public static Connection open() throws SQLException{
+    public static Connection open(){
         System.out.println("Conectando con la base de datos...");
 
-        Connection connection = DriverManager.getConnection(
-            "jdbc:mariadb://localhost:3306/tienda", 
-            "root", 
-            "root"
-        );
-
-        return connection;
+        Connection connection;
+        try {
+            connection = DriverManager.getConnection(
+                "jdbc:mariadb://localhost:3306/tienda", 
+                "root", 
+                "root"
+            );
+            return connection;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void close(Connection connection) {
