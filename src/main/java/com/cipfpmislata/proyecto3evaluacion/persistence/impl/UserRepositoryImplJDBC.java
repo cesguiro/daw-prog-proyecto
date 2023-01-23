@@ -14,8 +14,8 @@ public class UserRepositoryImplJDBC implements UserRepository{
     @Override
     public boolean create(User user) {
         Connection connection = DBUtil.open();
-        String sql = "INSERT INTO users (name, mail, password) VALUES (?, ?, ?)";
-        List<Object> params = List.of(user.getName(), user.getMail(), user.getPassword());
+        String sql = "INSERT INTO users (id, name, mail, password) VALUES (?, ?, ?, ?)";
+        List<Object> params = List.of(user.getId(), user.getName(), user.getMail(), user.getPassword());
         boolean result = DBUtil.insert(connection, sql, params);
         DBUtil.close(connection);
         return result;
@@ -31,7 +31,7 @@ public class UserRepositoryImplJDBC implements UserRepository{
             if (resultSet.next()) {
                 System.out.println("Usuario encontrado");
                 User user = new User(
-                    resultSet.getInt("id"), 
+                    resultSet.getString("id"), 
                     resultSet.getString("name"),
                     resultSet.getString("mail"),
                     resultSet.getString("password")                    

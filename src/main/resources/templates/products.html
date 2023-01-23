@@ -18,7 +18,7 @@
 
 
     <ul>
-       <li th:each="product : ${products}" th:text="|${product.brand} - ${product.name}|">Prueba</li> 
+       <a th:each="product : ${products}" th:href="@{${'/productos/' + product.id}}"><li th:text="|${product.brand} - ${product.name}|">Prueba</li></a> 
     </ul>
 </body>
 </html>

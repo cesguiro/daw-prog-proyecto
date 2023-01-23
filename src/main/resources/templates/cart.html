@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{plantillas/base :: head}">
+</head>
+<body>
+    <nav th:replace="~{plantillas/base:: menu}"></nav>
+    <ul>
+        <div th:each="article : ${cart.articles}">
+            <a th:href="@{${'/productos/' + article.product_id}}">
+                <li th:text="${article.product_name}">Prueba</li>
+            </a>
+            <span th:text="${article.quantity}"></span>
+            <form th:action="@{${'/carritos/activo/articulos/' + article.product_id}}" th:method="delete">
+                <input type="submit" value="Eliminar">
+            </form>
+        </div>
+    </ul>
+
+    <form action="/pedidos" method="POST">
+        <input type="submit" value="Confirmar pedido">
+    </form>
+</body>
+</html>

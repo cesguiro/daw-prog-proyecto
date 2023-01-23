@@ -12,13 +12,18 @@ public class ProductServiceImpl implements ProductService{
     ProductRepository productRepository = new ProductRepositoryImplJDBC();
 
     @Override
-    public List<Product> getByCategoryId(int id) {
+    public List<Product> getByCategoryId(int category_id) {
         try {
-            List<Product> products = productRepository.getByCategoryId(id);
+            List<Product> products = productRepository.getByCategoryId(category_id);
             return products;
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    @Override
+    public Product read(int id) {
+        return productRepository.read(id);
     }
     
 }

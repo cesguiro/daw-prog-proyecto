@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.cipfpmislata.proyecto3evaluacion.UUID.impl.UserUUIDRandomGenerator;
 import com.cipfpmislata.proyecto3evaluacion.domain.entity.User;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.UserService;
 import com.cipfpmislata.proyecto3evaluacion.exception.SigninException;
@@ -37,7 +38,10 @@ public class UserServiceImpl implements UserService{
             throw new SignupException("El email ya está registrado");
         }
 
-        User user = new User(name, mail, encryptPassword(password));
+        UserUUIDRandomGenerator userUUIDRandomGenerator = new UserUUIDRandomGenerator();
+        String id = userUUIDRandomGenerator.generate();
+
+        User user = new User(id, name, mail, encryptPassword(password));
         return userRepository.create(user);                
     }
 

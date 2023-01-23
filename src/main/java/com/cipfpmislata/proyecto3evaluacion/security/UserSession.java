@@ -28,12 +28,12 @@ public class UserSession {
     }
 
 
-    public static void setUserId(int id){
+    public static void setUserId(String id){
         setAttribute(USER_ID, id);
     }
 
-    public static Integer getUserId(){
-        return (Integer) getAttribute(USER_ID);
+    public static String getUserId(){
+        return (String) getAttribute(USER_ID);
     }
 
     public static boolean isLogged(){

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{plantillas/base :: head}">
+</head>
+<body>
+    <nav th:replace="~{plantillas/base:: menu}"></nav>
+    
+    <form action="/carritos/activo" method="POST">
+        <input type="hidden" name="id" th:value="${product.id}">
+        <p th:text="|${product.brand} - ${product.name}|"></p>
+        <p th:text="${product.description}"></p>
+        <p th:text="${product.price}"></p>
+        <input type="number" value="1" name="quantity">
+        <input type="submit" value="Añadir">
+    </form>
+    
+</body>
+</html>

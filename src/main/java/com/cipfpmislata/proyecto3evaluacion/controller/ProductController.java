@@ -26,4 +26,12 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("/productos/{id}")
+    public String getById(@PathVariable int id, Model model) {
+        Product product = productService.read(id);
+        model.addAttribute("product", product);
+
+        return "product";
+    }
+
 }

@@ -1,15 +1,17 @@
 package com.cipfpmislata.proyecto3evaluacion.domain.entity;
 
+import java.math.BigDecimal;
+
 public class Product {
     
     private int id;
     private String brand;
     private String name;
     private String description;
-    private double price;
+    private BigDecimal price;
     private int category_id;
     
-    public Product(int id, String brand, String name, String description, double price, int category_id) {
+    public Product(int id, String brand, String name, String description, BigDecimal price, int category_id) {
         this.id = id;
         this.brand = brand;
         this.name = name;
@@ -34,7 +36,7 @@ public class Product {
         return description;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
     

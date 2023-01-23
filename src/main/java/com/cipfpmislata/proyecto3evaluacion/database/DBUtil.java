@@ -81,4 +81,13 @@ public class DBUtil {
         }
     }
 
+    public static boolean delete(Connection connection, String sql, List<Object> values) {
+        try {
+            PreparedStatement preparedStatement = setParameters(connection, sql, values);
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

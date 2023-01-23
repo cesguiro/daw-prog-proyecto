@@ -16,42 +16,40 @@ public class ProductRepositoryImplJDBC implements ProductRepository{
     private TableNames tableName = TableNames.PRODUCTS;
 
     @Override
-    public boolean create(Product entity) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    public Product read(int id) {
+        Connection connection = DBUtil.open();
+        String sql = "SELECT * FROM " + tableName.name().toLowerCase() + " WHERE id = ?";
+        List<Object> params = List.of(id);
+        ResultSet resultSet = DBUtil.select(connection, sql, params);
+        DBUtil.close(connection);
+        try {
+            if (resultSet.next()) {
+                Product product = new Product(
+                    resultSet.getInt("id"), 
+                    resultSet.getString("brand"),
+                    resultSet.getString("name"),
+                    resultSet.getString("description"),
+                    resultSet.getBigDecimal("price"),
+                    resultSet.getInt("id")
+    
+                );
+                return product;
+            } else {
+                throw new RuntimeException();
+            }
+                
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+}
 
     @Override
-    public Product read(Integer primaryKey) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public boolean update(Product entity) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean delete(Product entity) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public List<Product> getAll() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<Product> getByCategoryId(int id) {
+    public List<Product> getByCategoryId(int category_id) {
         try {
             List<Product> products = new ArrayList<>();
             Connection connection = DBUtil.open();
             String sql = "SELECT * FROM " + tableName.name().toLowerCase() + " WHERE category_id = ?";
-            List<Object> params = List.of(id);
+            List<Object> params = List.of(category_id);
             ResultSet resultSet = DBUtil.select(connection, sql, params);
             while (resultSet.next()) {
                 Product product = new Product(
@@ -59,7 +57,7 @@ public class ProductRepositoryImplJDBC implements ProductRepository{
                     resultSet.getString("brand"),
                     resultSet.getString("name"),
                     resultSet.getString("description"),
-                    resultSet.getDouble("price"),
+                    resultSet.getBigDecimal("price"),
                     resultSet.getInt("id")
 
                 );

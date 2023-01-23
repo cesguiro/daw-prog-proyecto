@@ -2,7 +2,7 @@ package com.cipfpmislata.proyecto3evaluacion.domain.entity;
 
 public class User {
     
-    private int id;
+    private String id;
     private String name;
     private String mail;
     private String password;
@@ -13,7 +13,7 @@ public class User {
     }*/
 
     //Constructor por defecto con los campos obligatorios
-    public User(int id, String name, String mail, String password) {
+    public User(String id, String name, String mail, String password) {
         this.id = id;
         this.name = name;
         this.mail = mail;
@@ -22,14 +22,14 @@ public class User {
 
 
     //Constructor por defecto con los campos obligatorios
-    public User(String name, String mail, String password) {
+    /*public User(String name, String mail, String password) {
         this.name = name;
         this.mail = mail;
         this.password = password;
-    }
+    }*/
     
-    public int getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public String getName() {

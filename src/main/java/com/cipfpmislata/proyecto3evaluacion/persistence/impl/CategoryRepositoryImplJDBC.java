@@ -19,17 +19,11 @@ public class CategoryRepositoryImplJDBC implements CategoryRepository{
     private TableNames tableName = TableNames.CATEGORIES;
 
     @Override
-    public boolean create(Category entity) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public Category read(Integer primaryKey) {
+    public Category read(int id) {
         try {
             Connection connection = DBUtil.open();
             String sql = "SELECT * FROM " + tableName.name().toLowerCase() + " WHERE id = ? LIMIT 1";
-            List<Object> params = List.of(primaryKey);
+            List<Object> params = List.of(id);
             ResultSet resultSet = DBUtil.select(connection, sql, params);
             if (resultSet.next()) {
                 Category category = new Category(
@@ -44,18 +38,6 @@ public class CategoryRepositoryImplJDBC implements CategoryRepository{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } 
-    }
-
-    @Override
-    public boolean update(Category entity) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean delete(Category entity) {
-        // TODO Auto-generated method stub
-        return false;
     }
 
     @Override
