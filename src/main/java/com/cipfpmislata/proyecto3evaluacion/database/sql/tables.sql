@@ -35,23 +35,17 @@ CREATE TABLE `products` (
 
 -- tienda.carts definition
 
+-- tienda.carts definition
+
 CREATE TABLE `carts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `carts_FK` (`user_id`),
-  CONSTRAINT `carts_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- tienda.cart_products definition
-
-CREATE TABLE `cart_products` (
-  `cart_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `user_id` varchar(128) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cart_id`,`product_id`),
-  KEY `cart_products_FK_1` (`product_id`),
-  CONSTRAINT `cart_products_FK` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
-  CONSTRAINT `cart_products_FK_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET
+  `price` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `carts_UN` (`user_id`,`product_id`),
+  KEY `carts_FK_1` (`product_id`),
+  CONSTRAINT `carts_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `carts_FK_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
