@@ -29,7 +29,6 @@ public class UserRepositoryImplJDBC implements UserRepository{
             List<Object> params = List.of(mail);
             ResultSet resultSet = DBUtil.select(connection, sql, params);
             if (resultSet.next()) {
-                System.out.println("Usuario encontrado");
                 User user = new User(
                     resultSet.getString("id"), 
                     resultSet.getString("name"),
@@ -38,7 +37,6 @@ public class UserRepositoryImplJDBC implements UserRepository{
                 );
                 return  user;                    
             } else {
-                System.out.println("Usuario no encontrado");
                 return null;
             }
         } catch (SQLException e) {

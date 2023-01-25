@@ -14,6 +14,7 @@ import com.cipfpmislata.proyecto3evaluacion.domain.service.CartService;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.ProductService;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.impl.CartServiceImpl;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.impl.ProductServiceImpl;
+import com.cipfpmislata.proyecto3evaluacion.exception.ResourceNotFoundException;
 import com.cipfpmislata.proyecto3evaluacion.security.UserSession;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,19 +26,26 @@ public class CartController {
     private ProductService productService = new ProductServiceImpl();
     
     @PostMapping("/carritos/activo")
-    public String addArticle(HttpServletRequest httpServletRequest){
+    public String addArticle(HttpServletRequest httpServletRequest, Model model){
         if (!UserSession.isLogged()) {
             return "redirect:/login";
         }
-        int product_id = Integer.parseInt(httpServletRequest.getParameter("id"));
-        int quantity = Integer.parseInt(httpServletRequest.getParameter("quantity"));
-        Product product = productService.read(product_id);
-        String user_id = UserSession.getUserId();
-        System.out.println("USUARIO:" + user_id);
-        Article article = new Article(user_id, product_id, quantity, product.getPrice(), product.getBrand() + " - " + product.getName());
-        System.out.println(article);
-        cartService.addArticle(article);
-        return "index";
+        try {
+            int product_id = Integer.parseInt(httpServletRequest.getParameter("id"));
+            int quantity = Integer.parseInt(httpServletRequest.getParameter("quantity"));
+            Product product = productService.read(product_id);
+            String user_id = UserSession.getUserId();
+            System.out.println("USUARIO:" + user_id);
+            Article article = new Article(user_id, product_id, quantity, product.getPrice(), product.getBrand() + " - " + product.getName());
+            System.out.println(article);
+            cartService.addArticle(article);
+            return "index";                
+        } catch (ResourceNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (Exception e) {
+            return "error";
+        }
     }
 
     @GetMapping("/carritos/activo")

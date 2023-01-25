@@ -9,6 +9,7 @@ import java.util.List;
 import com.cipfpmislata.proyecto3evaluacion.database.DBUtil;
 import com.cipfpmislata.proyecto3evaluacion.database.TableNames;
 import com.cipfpmislata.proyecto3evaluacion.domain.entity.Product;
+import com.cipfpmislata.proyecto3evaluacion.exception.ResourceNotFoundException;
 import com.cipfpmislata.proyecto3evaluacion.persistence.ProductRepository;
 
 public class ProductRepositoryImplJDBC implements ProductRepository{
@@ -16,7 +17,7 @@ public class ProductRepositoryImplJDBC implements ProductRepository{
     private TableNames tableName = TableNames.PRODUCTS;
 
     @Override
-    public Product read(int id) {
+    public Product read(int id) throws ResourceNotFoundException {
         Connection connection = DBUtil.open();
         String sql = "SELECT * FROM " + tableName.name().toLowerCase() + " WHERE id = ?";
         List<Object> params = List.of(id);
@@ -35,7 +36,7 @@ public class ProductRepositoryImplJDBC implements ProductRepository{
                 );
                 return product;
             } else {
-                throw new RuntimeException();
+                throw new ResourceNotFoundException("Producto no encontrado");
             }
                 
         } catch (SQLException e) {

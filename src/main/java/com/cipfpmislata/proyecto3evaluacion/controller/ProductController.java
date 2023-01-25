@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.cipfpmislata.proyecto3evaluacion.domain.entity.Product;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.ProductService;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.impl.ProductServiceImpl;
+import com.cipfpmislata.proyecto3evaluacion.exception.ResourceNotFoundException;
 
 @Controller
 public class ProductController {
@@ -28,10 +29,17 @@ public class ProductController {
 
     @GetMapping("/productos/{id}")
     public String getById(@PathVariable int id, Model model) {
-        Product product = productService.read(id);
-        model.addAttribute("product", product);
-
-        return "product";
+        try {
+            Product product = productService.read(id);
+            model.addAttribute("product", product);    
+            return "product";
+        } catch (ResourceNotFoundException e) {
+            System.out.println("Excepción ResourceNotFoundException capturada");
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        } catch (Exception e) {
+            return "error";
+        }
     }
 
 }

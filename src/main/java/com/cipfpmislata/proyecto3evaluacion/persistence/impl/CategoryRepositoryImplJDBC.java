@@ -18,8 +18,8 @@ public class CategoryRepositoryImplJDBC implements CategoryRepository{
     
     private TableNames tableName = TableNames.CATEGORIES;
 
-    @Override
-    public Category read(int id) {
+    /*@Override
+    public Category read(int id) throws ResourceNotFoundException {
         try {
             Connection connection = DBUtil.open();
             String sql = "SELECT * FROM " + tableName.name().toLowerCase() + " WHERE id = ? LIMIT 1";
@@ -33,12 +33,12 @@ public class CategoryRepositoryImplJDBC implements CategoryRepository{
                 );
                 return  category;                    
             } else {
-                return null;
+                throw new ResourceNotFoundException("Categoría no encontrada");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } 
-    }
+    }*/
 
     @Override
     public List<Category> getAll() {

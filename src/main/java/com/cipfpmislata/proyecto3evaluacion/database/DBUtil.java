@@ -21,7 +21,7 @@ public class DBUtil {
             );
             return connection;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
     }
 
@@ -59,7 +59,7 @@ public class DBUtil {
     public static int update(Connection connection, String sql, List<Object> values) {    
         try {
             PreparedStatement preparedStatement = setParameters(connection, sql, values);
-            int numRows=preparedStatement.executeUpdate();
+            int numRows = preparedStatement.executeUpdate();
             return numRows;
         } catch (SQLException e) {
             throw new RuntimeException(e);
