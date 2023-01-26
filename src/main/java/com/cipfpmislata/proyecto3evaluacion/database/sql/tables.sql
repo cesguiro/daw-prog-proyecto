@@ -1,3 +1,6 @@
+create database if not exists tienda;
+use tienda;
+
 -- tienda.categories definition
 
 CREATE TABLE `categories` (
@@ -10,7 +13,7 @@ CREATE TABLE `categories` (
 -- tienda.users definition
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(128) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `mail` varchar(100) NOT NULL,
   `password` varchar(250) NOT NULL,
