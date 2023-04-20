@@ -14,12 +14,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getByCategoryId(int category_id) {
-        try {
-            List<Product> products = productRepository.getByCategoryId(category_id);
-            return products;
-        } catch (Exception e) {
-            throw e;
-        }
+        List<Product> products = productRepository.getByCategoryId(category_id);
+        return products;
     }
 
     @Override
