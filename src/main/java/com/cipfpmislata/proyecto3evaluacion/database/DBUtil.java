@@ -1,5 +1,8 @@
 package com.cipfpmislata.proyecto3evaluacion.database;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +11,19 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DBUtil {
+
+    private static DataSource datasource;
+    public static DataSource getDataSource(){
+        if(datasource == null){
+            DriverManagerDataSource dataSource = new DriverManagerDataSource();
+            dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
+            dataSource.setUrl("jdbc:mariadb://localhost:3306/tienda");
+            dataSource.setUsername("root");
+            dataSource.setPassword("1234");
+            datasource = dataSource;
+        }
+        return datasource;
+    }
     
     public static Connection open(){
         System.out.println("Conectando con la base de datos...");
@@ -15,9 +31,9 @@ public class DBUtil {
         Connection connection;
         try {
             connection = DriverManager.getConnection(
-                "jdbc:mariadb://localhost:3306/tienda", 
-                "root", 
-                "root"
+                "jdbc:mariadb://localhost:3306/tienda",
+                "root",
+                "1234"
             );
             return connection;
         } catch (SQLException e) {
