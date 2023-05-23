@@ -12,14 +12,19 @@ import java.util.List;
 
 public class DBUtil {
 
+    public static final String DBHost = System.getenv("DBHOST");
+    public static final String DBName = System.getenv("DBNAME");
+    public static final String DBUser = System.getenv("DBUSER");
+    public static final String DBPasswd = System.getenv("DBPASSWD");
+
     private static DataSource datasource;
     public static DataSource getDataSource(){
         if(datasource == null){
             DriverManagerDataSource dataSource = new DriverManagerDataSource();
             dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-            dataSource.setUrl("jdbc:mariadb://localhost:3306/tienda");
-            dataSource.setUsername("root");
-            dataSource.setPassword("1234");
+            dataSource.setUrl("jdbc:mariadb://" + DBHost + "/" + DBName);
+            dataSource.setUsername(DBUser);
+            dataSource.setPassword(DBPasswd);
             datasource = dataSource;
         }
         return datasource;
@@ -31,9 +36,9 @@ public class DBUtil {
         Connection connection;
         try {
             connection = DriverManager.getConnection(
-                "jdbc:mariadb://localhost:3306/tienda",
-                "root",
-                "1234"
+                "jdbc:mariadb://" + DBHost + "/" + DBName,
+                DBUser,
+                DBPasswd
             );
             return connection;
         } catch (SQLException e) {
