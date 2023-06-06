@@ -1,10 +1,9 @@
-create database if not exists tienda;
-use tienda;
+SET MODE MySQL;
 
 -- tienda.categories definition
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `image` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -13,7 +12,7 @@ CREATE TABLE `categories` (
 -- tienda.users definition
 
 CREATE TABLE `users` (
-  `id` varchar(128) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `mail` varchar(100) NOT NULL,
   `password` varchar(250) NOT NULL,

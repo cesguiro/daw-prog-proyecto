@@ -6,20 +6,16 @@ import com.cipfpmislata.proyecto3evaluacion.domain.entity.Product;
 import com.cipfpmislata.proyecto3evaluacion.domain.service.ProductService;
 import com.cipfpmislata.proyecto3evaluacion.exception.ResourceNotFoundException;
 import com.cipfpmislata.proyecto3evaluacion.persistence.ProductRepository;
-import com.cipfpmislata.proyecto3evaluacion.persistence.impl.ProductRepositoryImplJDBC;
+import com.cipfpmislata.proyecto3evaluacion.persistence.impl.ProductRepositoryImplJDBCTemplate;
 
 public class ProductServiceImpl implements ProductService{
 
-    ProductRepository productRepository = new ProductRepositoryImplJDBC();
+    ProductRepository productRepository = new ProductRepositoryImplJDBCTemplate();
 
     @Override
     public List<Product> getByCategoryId(int category_id) {
-        try {
-            List<Product> products = productRepository.getByCategoryId(category_id);
-            return products;
-        } catch (Exception e) {
-            throw e;
-        }
+        List<Product> products = productRepository.getByCategoryId(category_id);
+        return products;
     }
 
     @Override
